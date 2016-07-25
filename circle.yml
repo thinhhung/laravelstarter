@@ -1,3 +1,19 @@
 machine:
   php:
     version: 7.0.4
+
+dependencies:
+  override:
+    - composer install --prefer-source --no-interaction --dev
+
+database:
+  post:
+    - mysql -u root < $HOME/$CIRCLE_PROJECT_REPONAME/ddl/mysql/setup.sql
+    - mysql homestead -u root < $HOME/$CIRCLE_PROJECT_REPONAME/ddl/mysql/data.sql
+
+test:
+  pre:
+    - cp .env.example .env
+    - php artisan key:generate
+    - php artisan migrate
+    - php artisan db:seed
