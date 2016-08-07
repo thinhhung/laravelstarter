@@ -1,27 +1,49 @@
-## Laravel PHP Framework
+# laravel-jenkins
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+Boilerplate for setting up continuous integration of [Laravel 4](http://www.laravel.com/) using [Jenkins](http://www.jenkins-ci.org)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+We did not want to delete and recreate the vendor folder everytime that the script was ran, so "composer update" is ran if the vendor folder exist--otherwise "composer install" is ran.  In order to force a clean vendor folder, you can run one of the builds with the "-clean"…
 
-Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+	ant build-clean
+	OR
+	ant build-parallel-clean
 
-## Official Documentation
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+### Build Targets
+Here are the list of build targets that are defined within the build.xml:
 
-## Contributing
+* build *(DEFAULT)*
+* build-clean
+* build-parallel
+* build-parallel-clean
+* build-common
+* tools-parallel - Run tools in parallel
+* clean - Cleanup build and composer artifacts
+* clean-build - Cleanup build artifacts
+* clean-composer - Cleanup composer artifacts
+* composer - Install or update dependencies
+* composer.check
+* composer-install - Installing dependencies
+* composer-update - Updating dependencies
+* lint - Perform syntax check of sourcecode files
+* pdepend - Calculate software metrics using PHP_Depend
+* phpcb - Aggregate tool output with PHP_CodeBrowser
+* phpcpd - Find duplicate code using PHPCPD
+* phpcs - Find coding standard violations using PHP_CodeSniffer and print human readable output. Intended for usage on the command line before committing
+* phpcs-ci - Find coding standard violations using PHP_CodeSniffer creating a log file for the continuous integration server
+* phpdox - Generate API documentation using phpDox
+* phploc - Measure project size using PHPLOC
+* phpmd - Perform project mess detection using PHPMD and print human readable output. Intended for usage on the command line before committing.
+* phpmd-ci - Perform project mess detection using PHPMD creating a log file for the continuous integration server
+* phpunit - Run unit tests with PHPUnit
+* prepare - Prepare for build
+* storage-permissions - Setting storage permissions
+* storage-permissions.unix - Setting storage permissions on unix
+* storage-permissions.windows - Setting storage permissions on windows
+* storage.unix.check - Check for app/storage on unix
+* storage.windows.check - Check for app/storage on windows
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
-
-### License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+### References
+This boilerplate comes from glueing together a collection of post on the internet
+* [https://modess.io/continuous-integration-for-laravel-with-jenkins-and-git/](https://modess.io/continuous-integration-for-laravel-with-jenkins-and-git/)
+* [http://chris.schalenborgh.be/2013/04/05/deploy-php-projects-jenkins-os/](http://chris.schalenborgh.be/2013/04/05/deploy-php-projects-jenkins-os/)
